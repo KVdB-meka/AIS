@@ -42,7 +42,7 @@ RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
-
+```
 ---
 
 ## 💾 Part 2: Global Data Downloader
