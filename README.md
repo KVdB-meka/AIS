@@ -42,3 +42,20 @@ RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
+
+---
+
+## 💾 Part 2: Global Data Downloader
+To build a historical dataset, this system fetches global data from the AISHub API every 30 minutes.
+
+* **Script:** `download_world_ais.sh`
+* **Function:** Fetches CSV data, saves it with a timestamp, appends it to a master log, and inserts it into a SQLite database.
+* **Schedule:** Runs every 30 minutes via Cron.
+
+## 📦 Part 3: Data Retention (Auto-Zip)
+To prevent the storage from filling up, automated scripts compress and organize data into Daily, Weekly, and Monthly archives.
+
+* **Scripts:** `daily_rotate.sh`, `weekly_rotate.sh`, `monthly_rotate.sh`
+* **Daily:** Zips yesterday's files into `daily_archives/` (Runs at 00:10 UTC).
+* **Weekly:** Zips last week's files into `weekly_archives/` (Runs Mondays).
+* **Monthly:** Zips last month's files into `monthly_archives/` (Runs 1st of month).
