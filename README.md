@@ -59,3 +59,20 @@ To prevent the storage from filling up, automated scripts compress and organize 
 * **Daily:** Zips yesterday's files into `daily_archives/` (Runs at 00:10 UTC).
 * **Weekly:** Zips last week's files into `weekly_archives/` (Runs Mondays).
 * **Monthly:** Zips last month's files into `monthly_archives/` (Runs 1st of month).
+
+* ---
+
+## 🧹 Part 4: Cleanup (Disk Space Management)
+To ensure the NAS does not run out of space, a cleanup script removes old archives based on a retention policy.
+
+* **Script:** `cleanup_archives.sh`
+* **Policy:**
+    * **Daily Zips:** Deleted after **30 days**.
+    * **Weekly Zips:** Deleted after **90 days**.
+    * **Monthly Zips:** Kept **Indefinitely**.
+
+### Automation (Cron)
+Add this line to the crontab (`crontab -e`) to run the cleanup once a week (e.g., Sunday at 03:00 UTC):
+
+```cron
+0 3 * * 0 /home/pi/scripts/cleanup_archives.sh
